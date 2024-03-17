@@ -7,6 +7,10 @@
 
 :exclamation: If you find this repository helpful, please consider giving it a :star:. Thanks! :exclamation:
 
+This is forked project where in I have done my analysis on 
+link to the orignal project: 
+https://github.com/iweld/chicago_crime_and_weather
+
 ## Introduction
 An SQL analysis of reported crimes in the city of Chicago and the average daily temperature between 2018 and 2023.
 
