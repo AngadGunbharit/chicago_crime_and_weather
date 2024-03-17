@@ -10,8 +10,9 @@
 
 Question 1: List the total number of reported crimes in the year 2022?
 
-sql
-Copy code
+
+
+
 SELECT 
     EXTRACT(YEAR FROM reported_crime_date) AS crime_year,
     COUNT(*) AS num_of_crimes
@@ -25,10 +26,12 @@ Results:
 
 crime_year	num_of_crimes
 2022	62412
+
+
+
 Question 2: What is the trend of domestic violence crimes from 2018 to 2023?
 
-sql
-Copy code
+
 WITH domestic_violence AS (
     SELECT 
         EXTRACT(YEAR FROM reported_crime_date) AS crime_year,
@@ -47,6 +50,8 @@ SELECT
     ROUND(100 * (num_of_crimes - LAG(num_of_crimes) OVER (ORDER BY crime_year)) / LAG(num_of_crimes) OVER (ORDER BY crime_year), 2) AS year_over_year_growth
 FROM 
     domestic_violence;
+
+    
 Results:
 
 crime_year	num_of_crimes	prev_year_count	year_over_year_growth
@@ -56,10 +61,13 @@ crime_year	num_of_crimes	prev_year_count	year_over_year_growth
 2021	45018	39983	12.59
 2022	42530	45018	-5.53
 2023	46834	42530	10.12
+
+
+
+
 Question 3: List the top 5 crime locations with the highest number of reported crimes in 2023.
 
-sql
-Copy code
+
 SELECT 
     location_description,
     COUNT(*) AS num_of_crimes
@@ -80,10 +88,14 @@ Apartment	18542
 Residence	16643
 Sidewalk	6814
 Alley	5538
+
+
+
+
+
 4. List the top 5 months with the highest number of reported thefts and their corresponding average high temperatures. Order the list by the number of thefts in descending order.
 
-sql
-Copy code
+
 SELECT
     to_char(t1.reported_crime_date, 'Month') AS month,
     COUNT(*) AS theft_count,
@@ -101,10 +113,13 @@ GROUP BY
 ORDER BY
     theft_count DESC
 LIMIT 5;
+
+
+
+
+
 5. Find the community with the highest percentage increase in reported crimes from 2020 to 2021. Display the community name, the percentage increase, and the actual increase in reported crimes.
 
-sql
-Copy code
 WITH crime_counts AS (
     SELECT
         t2.community_name,
@@ -143,10 +158,13 @@ FROM
 ORDER BY
     percentage_increase DESC
 LIMIT 1;
+
+
+
+
+
 6. Calculate the average number of reported crimes per month for each year from 2018 to 2023. Include the year, month, and average number of reported crimes.
 
-sql
-Copy code
 SELECT
     EXTRACT(YEAR FROM reported_crime_date) AS year,
     TO_CHAR(reported_crime_date, 'Month') AS month,
@@ -157,10 +175,14 @@ GROUP BY
     year, month
 ORDER BY
     year, month;
+
+
+
+
+
 7. Determine the percentage of crimes that resulted in an arrest for each crime type. Display the crime type along with the percentage of arrests, ordered by the highest percentage first.
 
-sql
-Copy code
+
 SELECT
     crime_type,
     ROUND(COUNT(CASE WHEN arrest THEN 1 ELSE NULL END) * 100.0 / COUNT(*), 2) AS arrest_percentage
